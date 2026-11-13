@@ -1,8 +1,17 @@
 const configured = (import.meta.env.VITE_PUBLIC_SITE_URL as string | undefined)?.trim().replace(/\/+$/, '')
+const basePath = import.meta.env.BASE_URL.replace(/\/+$/, '')
+
+/** Prefix paths on project Pages, keeping root paths on a custom domain. */
+export function appPath(path: string) {
+  if (!path.startsWith('/') || path.startsWith('//')) return path
+  if (basePath && (path === basePath || path.startsWith(`${basePath}/`))) return path
+  return `${basePath}${path}`
+}
+export const assetUrl = appPath
 
 /** Base pública usada nos QR Codes. Sem configuração, usa o endereço atual. */
 export function publicSiteUrl() {
-  return configured || window.location.origin
+  return configured || `${window.location.origin}${basePath}`
 }
 
 export const isSiteUrlConfigured = Boolean(configured)

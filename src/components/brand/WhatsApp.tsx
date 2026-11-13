@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 import { cn } from '@/components/ui/primitives'
 
 /**
@@ -22,15 +23,15 @@ function BrandIcon({ src, className, title, w = 256, h = 256 }: { src: string; c
 
 /** Logo oficial do WhatsApp (balão verde com contorno branco). */
 export function WhatsAppLogo({ className, title }: { className?: string; title?: string }) {
-  return <BrandIcon src="/brand/contact/whatsapp.png" className={className} title={title} />
+  return <BrandIcon src={assetUrl('/brand/contact/whatsapp.png')} className={className} title={title} />
 }
 
 /** Glifo oficial do Instagram, gradiente da marca. */
 export function InstagramLogo({ className, title }: { className?: string; title?: string }) {
-  return <BrandIcon src="/brand/contact/instagram.png" className={className} title={title} />
+  return <BrandIcon src={assetUrl('/brand/contact/instagram.png')} className={className} title={title} />
 }
 
 /** Invertocat oficial do GitHub, versão branca para fundos escuros. */
 export function GitHubLogo({ className, title }: { className?: string; title?: string }) {
-  return <BrandIcon src="/brand/contact/github-white.png" className={className} title={title} />
+  return <BrandIcon src={assetUrl('/brand/contact/github-white.png')} className={className} title={title} />
 }

@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 import { cn } from '@/components/ui/primitives'
 
 /**
@@ -5,11 +6,11 @@ import { cn } from '@/components/ui/primitives'
  * Não recolorir, distorcer ou recriar: só escolher a versão e o tamanho.
  */
 const assets = {
-  horizontal: { src: '/brand/or7table-horizontal.webp', w: 600, h: 147 },
-  stacked: { src: '/brand/or7table-stacked.webp', w: 640, h: 383 },
-  icon: { src: '/brand/or7table-icon.webp', w: 256, h: 238 },
-  symbol: { src: '/brand/or7table-symbol.webp', w: 256, h: 179 },
-  mono: { src: '/brand/or7table-mono.webp', w: 700, h: 443 },
+  horizontal: { src: assetUrl('/brand/or7table-horizontal.webp'), w: 600, h: 147 },
+  stacked: { src: assetUrl('/brand/or7table-stacked.webp'), w: 640, h: 383 },
+  icon: { src: assetUrl('/brand/or7table-icon.webp'), w: 256, h: 238 },
+  symbol: { src: assetUrl('/brand/or7table-symbol.webp'), w: 256, h: 179 },
+  mono: { src: assetUrl('/brand/or7table-mono.webp'), w: 700, h: 443 },
 } as const
 
 export type LogoVariant = keyof typeof assets
@@ -48,7 +49,7 @@ export function Logo({
 export function Or7Signature({ className, surface = 'dark' }: { className?: string; surface?: 'dark' | 'light' }) {
   const img = (
     <img
-      src="/brand/or7-signature-alpha.webp"
+      src={assetUrl('/brand/or7-signature-alpha.webp')}
       width={720}
       height={97}
       alt="Or7 — idealizado e desenvolvido por Lorenzo Orsetti"

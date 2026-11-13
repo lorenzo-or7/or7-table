@@ -110,7 +110,7 @@ export function productImage(path: string | null, width = 900): string | null {
   const url = mediaUrl(path)
   if (!url) return null
   // fotos dos cardápios demonstrativos têm uma versão leve para miniaturas
-  if (url.startsWith('/demo/') && width <= 480) return url.replace(/(-2)?\.webp$/, (m, alt) => (alt ? m : '-sm.webp'))
+  if (url.includes('/demo/') && width <= 480) return url.replace(/(-2)?\.webp$/, (m, alt) => (alt ? m : '-sm.webp'))
   if (url.includes('images.unsplash.com')) {
     return url.replace(/([?&])w=\d+/, `$1w=${width}`)
   }

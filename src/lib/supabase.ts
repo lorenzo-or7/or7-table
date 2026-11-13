@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import { assetUrl } from './site'
 
 const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim()
 const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim()
@@ -86,7 +87,8 @@ export const MEDIA_BUCKET = 'menu-media'
 export function mediaUrl(path: string | null | undefined): string | null {
   if (!path) return null
   // URL absoluta ou arquivo do próprio site (fotos dos cardápios demonstrativos)
-  if (/^https?:\/\//.test(path) || path.startsWith('/')) return path
+  if (/^https?:\/\//.test(path)) return path
+  if (path.startsWith('/')) return assetUrl(path)
   if (!url) return null
   return `${url}/storage/v1/object/public/${MEDIA_BUCKET}/${path}`
 }
