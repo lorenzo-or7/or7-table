@@ -1,3 +1,5 @@
+import { assetUrl } from '@/lib/site'
+import { productImage } from '@/lib/public-menu'
 /**
  * Abertura compacta "Premium Digital Menu".
  * A fotografia do Iced Caramelo Macchiato tem fundo verde: no desktop ela ocupa a metade esquerda e se
@@ -12,7 +14,7 @@ import type { PublicProduct } from '@/lib/public-menu'
 import { formatBRL } from '@/lib/format'
 import { display, ease, label, sb, SIREN, wrapClass } from './tokens'
 
-const LEAD_IMG = '/demo/starbucks/iced-caramelo-macchiato.webp'
+const LEAD_IMG = assetUrl('/demo/starbucks/iced-caramelo-macchiato.webp')
 
 export function Hero({
   total,
@@ -38,7 +40,7 @@ export function Hero({
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const photoY = useTransform(scrollYProgress, [0, 1], [0, 70])
-  const leadSrc = lead?.image_path ?? LEAD_IMG
+  const leadSrc = productImage(lead?.image_path ?? null, 1400) ?? LEAD_IMG
   const minPrice = lead ? Math.min(lead.price, ...(lead.variants ?? []).map((v) => v.price)) : 0
 
   const line = (text: React.ReactNode, i: number) => (

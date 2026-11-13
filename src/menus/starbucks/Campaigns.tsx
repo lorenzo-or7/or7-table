@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 /**
  * As três campanhas do Starbucks Demo, cada uma com composição própria. O pôster aparece sempre inteiro
  * (largura definida, altura pela proporção 4:5 original), sobre um fundo que conversa com a arte:
@@ -23,8 +24,8 @@ function Poster({ src, alt, animate, className, drift = 36 }: { src: string; alt
   return (
     <motion.div ref={ref} className={className} style={animate ? { y } : undefined}>
       <motion.img
-        src={`/demo/starbucks/${src}.webp`}
-        srcSet={`/demo/starbucks/${src}-sm.webp 520w, /demo/starbucks/${src}.webp 1000w`}
+        src={assetUrl(`/demo/starbucks/${src}.webp`)}
+        srcSet={`${assetUrl(`/demo/starbucks/${src}-sm.webp`)} 520w, ${assetUrl(`/demo/starbucks/${src}.webp`)} 1000w`}
         sizes="(min-width: 1024px) 34vw, 92vw"
         alt={alt}
         width={1000}

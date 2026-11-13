@@ -1,3 +1,4 @@
+import { assetUrl, appPath } from '@/lib/site'
 /**
  * Tela de carregamento oficial do Or7 Table (somente no shell: login e painéis).
  * A logo é o arquivo aprovado (or7table-stacked.webp): o símbolo e o wordmark são o MESMO arquivo,
@@ -57,7 +58,7 @@ export function BootScreen() {
           <h1 className="sr-only">Or7 Table</h1>
           {/* 1. símbolo */}
           <motion.img
-            src="/brand/or7table-stacked.webp"
+            src={assetUrl('/brand/or7table-stacked.webp')}
             width={640}
             height={383}
             alt=""
@@ -70,7 +71,7 @@ export function BootScreen() {
           />
           {/* 2. wordmark */}
           <motion.img
-            src="/brand/or7table-stacked.webp"
+            src={assetUrl('/brand/or7table-stacked.webp')}
             width={640}
             height={383}
             alt=""
@@ -90,7 +91,7 @@ export function BootScreen() {
               <button type="button" onClick={() => window.location.reload()} className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy-950 outline-none focus-visible:ring-2 focus-visible:ring-gold-soft focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1432]">
                 Tentar novamente
               </button>
-              <a href="/" className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-cream outline-none focus-visible:ring-2 focus-visible:ring-gold">
+              <a href={appPath('/')} className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-cream outline-none focus-visible:ring-2 focus-visible:ring-gold">
                 Ir para o site
               </a>
             </div>

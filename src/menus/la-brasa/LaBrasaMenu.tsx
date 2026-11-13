@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 /**
  * La Brasa — cardápio exclusivo (hamburgueria).
  * Direção: street burger brutalista. Carvão, osso, mostarda e brasa;
@@ -26,7 +27,7 @@ const display = "'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif"
 const body = "'Archivo', ui-sans-serif, system-ui, sans-serif"
 const BURGER_GROUP = ['burgers', 'smashs', 'doces']
 /** foto da campanha: o Australiano cortado, a mais apetitosa do material recebido */
-const HERO_PHOTO = '/demo/la-brasa/australiano-2.webp'
+const HERO_PHOTO = assetUrl('/demo/la-brasa/australiano-2.webp')
 const ALT_PHOTOS = new Set(['australiano', 'costelao', 'la-queso', 'smash-cheddar', 'smash-catupiry', 'burger-nutella', 'caramelo', 'goudog', 'batata-ondulada', 'onion-rings', 'milkshake-morango', 'milkshake-oreo'])
 
 const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim()
@@ -36,7 +37,7 @@ function gallery(path: string | null) {
   const main = productImage(path, 960)
   if (!main) return []
   const m = path?.match(/^\/demo\/la-brasa\/([a-z0-9-]+)\.webp$/)
-  return m && ALT_PHOTOS.has(m[1]!) ? [main, `/demo/la-brasa/${m[1]}-2.webp`] : [main]
+  return m && ALT_PHOTOS.has(m[1]!) ? [main, assetUrl(`/demo/la-brasa/${m[1]}-2.webp`)] : [main]
 }
 
 /** Aberto todos os dias das 18h30 às 23h30 (horário de Curitiba). */
@@ -84,7 +85,7 @@ export default function LaBrasaMenu({ menu, isDemoData, embedded, lite }: MenuTh
   )
   const [selected, setSelected] = useState<PublicProduct | null>(null)
   const est = menu.establishment
-  const logo = mediaUrl(est.logo_path) ?? '/demo/la-brasa/logo.webp'
+  const logo = mediaUrl(est.logo_path) ?? assetUrl('/demo/la-brasa/logo.webp')
   const mapsHref = est.address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(est.address)}` : null
   const catName = useMemo(() => Object.fromEntries(menu.categories.map((x) => [x.id, x.name])), [menu.categories])
   const highlights = useMemo(() => {

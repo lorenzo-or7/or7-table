@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 import type { PublicMenu } from '@/lib/public-menu'
 
 /**
@@ -6,7 +7,7 @@ import type { PublicMenu } from '@/lib/public-menu'
  * Descrições e preços são de DEMONSTRAÇÃO (o material recebido não trazia esses dados).
  * Os mesmos dados estão em supabase/seed_demo.sql (slug "la-brasa").
  */
-const img = (slug: string) => `/demo/la-brasa/${slug}.webp`
+const img = (slug: string) => assetUrl(`/demo/la-brasa/${slug}.webp`)
 
 const C = {
   burgers: 'c1000000-0000-4000-8000-000000000001',
@@ -50,7 +51,7 @@ export const laBrasaMenu: PublicMenu = {
     address: 'Rua Arion Niepce da Silva, 335, Curitiba, 80610-310',
     opening_hours: 'Todos os dias · 18h30 às 23h30',
     instagram: null,
-    logo_path: '/demo/la-brasa/logo.webp',
+    logo_path: assetUrl('/demo/la-brasa/logo.webp'),
     updated_at: null,
   },
   categories: [

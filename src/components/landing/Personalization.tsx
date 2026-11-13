@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion, useInView } from 'motion/react'
 import { cn } from '@/components/ui/primitives'
@@ -74,7 +75,7 @@ function BrasaScreen() {
   return (
     <div className="h-full bg-[#0E0C0A] text-[#F3ECDF]" style={{ fontFamily: "'Archivo', system-ui, sans-serif" }}>
       <div className="relative flex flex-col items-center px-4 pt-10 pb-3" style={{ background: 'radial-gradient(90% 60% at 50% 110%, #E8501E55, transparent 60%)' }}>
-        <img src="/demo/la-brasa/logo.webp" alt="" className="h-[118px] w-auto" />
+        <img src={assetUrl('/demo/la-brasa/logo.webp')} alt="" className="h-[118px] w-auto" />
         <p className="mt-2 text-center text-[24px] leading-[0.9] font-black uppercase" style={{ fontFamily: display }}>
           Burger de rua, <span className="text-[#F5B301]">feito na brasa.</span>
         </p>

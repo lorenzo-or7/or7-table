@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 import type { CSSProperties } from 'react'
 /** Identidade do Starbucks Demo (demonstração conceitual não oficial). */
 export const sb = {
@@ -37,7 +38,7 @@ export const label: CSSProperties = {
   textTransform: 'uppercase',
 }
 
-export const SIREN = '/demo/starbucks/brand/starbucks-siren.svg'
+export const SIREN = assetUrl('/demo/starbucks/brand/starbucks-siren.svg')
 
 /** Curva padrão das transições editoriais (saída longa, sem quique). */
 export const ease = [0.22, 1, 0.36, 1] as const
