@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin
+Disallow: /painel
+Disallow: /entrar
+Disallow: /redefinir-senha

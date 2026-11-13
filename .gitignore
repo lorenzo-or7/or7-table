@@ -1,0 +1,22 @@
+# Dependencies / build
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# Local state and logs
+.impeccable/
+.claude/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
