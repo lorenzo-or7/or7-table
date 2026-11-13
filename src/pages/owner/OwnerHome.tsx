@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 /**
  * Início do painel do restaurante: o que o dono precisa ver ao entrar.
  * Link público + QR Code, um resumo do cardápio e os itens esgotados para reativar com um toque.
@@ -81,7 +82,7 @@ export default function OwnerHome() {
         description="Seu cardápio em um olhar. Tudo que você muda aqui aparece para os clientes assim que é salvo."
         actions={
           <a
-            href={`/table/${establishment.slug}`}
+            href={appPath(`/table/${establishment.slug}`)}
             target="_blank"
             rel="noreferrer"
             className="inline-flex h-11 items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-4 text-[0.95rem] text-cream hover:bg-white/[0.09]"
