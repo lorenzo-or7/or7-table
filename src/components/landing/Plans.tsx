@@ -2,8 +2,8 @@ import { CalendarCheck, Check, PenTool, Plus, Repeat } from 'lucide-react'
 import { useRef, type ReactNode } from 'react'
 import { useInView } from 'motion/react'
 import { cn } from '@/components/ui/primitives'
-import { EditorialButton, OutlineButton } from '@/components/ui/cta'
-import { whatsappHref, type ContactIntent } from '@/lib/site'
+import { EditorialButton } from '@/components/ui/cta'
+import { whatsappHref } from '@/lib/site'
 import { Container, Reveal, SectionHeading } from './common'
 
 const parts: Array<{
@@ -13,16 +13,16 @@ const parts: Array<{
   cadenceIcon: typeof CalendarCheck
   text: string
   items: string[]
-  cta: string
-  intent: ContactIntent
+  price: string
+  priceNote: string
   gold: boolean
 }> = [
   {
     step: '01',
-    name: 'Implantação',
+    name: 'Criação do cardápio',
     cadence: 'Pagamento único',
     cadenceIcon: PenTool,
-    text: 'O projeto do seu cardápio, do primeiro esboço até o QR Code impresso.',
+    text: 'Você paga uma vez para criarmos e configurarmos seu cardápio digital exclusivo.',
     items: [
       'Design exclusivo do cardápio',
       'Cadastro inicial de categorias, produtos e fotos',
@@ -30,16 +30,16 @@ const parts: Array<{
       'QR Code em PNG e SVG para impressão',
       'Acesso do administrador ao painel',
     ],
-    cta: 'Solicitar proposta',
-    intent: 'proposal',
+    price: 'A partir de R$ 400',
+    priceNote: 'Pagamento único pela criação',
     gold: false,
   },
   {
     step: '02',
-    name: 'Mensalidade',
+    name: 'Manutenção e acesso',
     cadence: 'Todo mês',
     cadenceIcon: Repeat,
-    text: 'Mantém o cardápio no ar, com painel para editar e suporte da equipe Or7.',
+    text: 'Você paga todo mês para manter o cardápio online, editar seus produtos e receber suporte.',
     items: [
       'Cardápio publicado e acessível 24 horas',
       'Painel para produtos, preços, categorias e fotos',
@@ -47,8 +47,8 @@ const parts: Array<{
       'Contagem de acessos ao cardápio',
       'Suporte da equipe Or7',
     ],
-    cta: 'Falar com a Or7',
-    intent: 'hiring',
+    price: 'Sob consulta',
+    priceNote: 'Valor mensal definido na proposta',
     gold: true,
   },
 ]
@@ -80,21 +80,21 @@ export function Plans() {
         <SectionHeading
           id="plans-title"
           eyebrow="Investimento"
-          title="Como funciona"
-          accent="a contratação."
-          description="São duas cobranças que se completam, não planos para escolher: a implantação monta o seu cardápio e a mensalidade o mantém funcionando."
+          title="Um cardápio."
+          accent="Duas etapas de pagamento."
+          description="Não são dois planos. Você paga pela criação do cardápio uma única vez e, depois, uma mensalidade para continuar utilizando o serviço."
         />
 
         {/* linha do tempo: uma vez → todo mês */}
         <Reveal className="mx-auto mt-12 flex max-w-xl items-center justify-center gap-3 text-sm text-mist" y={10}>
           <span className="inline-flex items-center gap-2">
             <span className="grid size-6 place-items-center rounded-[3px] border border-white/15 text-[11px] font-semibold text-cream tabular">01</span>
-            Paga uma vez
+            Criação · paga uma vez
           </span>
           <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-white/15 via-gold/60 to-gold" />
           <span className="inline-flex items-center gap-2">
             <span className="grid size-6 place-items-center rounded-[3px] bg-gold text-[11px] font-semibold text-navy-950 tabular">02</span>
-            Depois, todo mês
+            Manutenção · paga todo mês
           </span>
         </Reveal>
 
@@ -128,7 +128,7 @@ export function Plans() {
                 </div>
                 <p className="mt-3 text-[0.97rem] leading-relaxed text-mist">{p.text}</p>
                 <div className="mt-8 flex items-end gap-3 border-y border-white/[0.07] py-5">
-                  <p className="display text-[2.8rem] text-cream">Sob consulta</p>
+                  <div><p className="display text-[clamp(1.7rem,3.2vw,2.8rem)] text-cream">{p.price}</p><p className="mt-1 text-xs text-dim">{p.priceNote}</p></div>
                 </div>
                 <ul className="mt-6 grid gap-3.5">
                   {p.items.map((item) => (
@@ -140,23 +140,23 @@ export function Plans() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-auto pt-9">
-                  {p.gold ? (
-                    <EditorialButton href={whatsappHref(p.intent)} className="w-full">
-                      {p.cta}
-                    </EditorialButton>
-                  ) : (
-                    <OutlineButton href={whatsappHref(p.intent)} className="w-full">
-                      {p.cta}
-                    </OutlineButton>
-                  )}
-                </div>
               </FrameCard>
             </Reveal>
           ))}
         </div>
+        <Reveal className="mx-auto mt-8 max-w-3xl rounded-[12px] border border-gold/25 bg-gold/[0.055] px-5 py-6 text-center sm:px-8">
+          <p className="text-sm font-semibold text-cream">Uma contratação, duas cobranças.</p>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-mist">
+            Primeiro você investe na criação do cardápio. Depois paga a mensalidade para mantê-lo disponível e usar o painel. As duas etapas fazem parte do mesmo serviço.
+          </p>
+          <div className="mx-auto mt-5 max-w-sm">
+            <EditorialButton href={whatsappHref('proposal')} className="w-full">
+              Solicitar proposta completa
+            </EditorialButton>
+          </div>
+        </Reveal>
         <Reveal className="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-dim">
-          Os valores dependem do tamanho do cardápio e do projeto visual. O Or7 Table não inclui pedidos online, pagamentos ou integração com o caixa: o foco é o
+          A criação começa em R$ 400; o valor final e a mensalidade são informados antes da contratação. O Or7 Table não inclui pedidos online, pagamentos ou integração com o caixa: o foco é o
           cardápio.
         </Reveal>
       </Container>
