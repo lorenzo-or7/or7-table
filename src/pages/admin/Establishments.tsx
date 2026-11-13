@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { ArrowUpRight, Ellipsis, Pencil, Plus, QrCode, Search, Store, Trash2, UserPlus, UtensilsCrossed } from 'lucide-react'
@@ -235,7 +236,7 @@ function RowMenu({ e, onEdit, onDelete }: { e: Establishment; onEdit: () => void
               onKeyDown={(ev) => ev.key === 'Escape' && setOpen(false)}
             >
               {[
-                { icon: ArrowUpRight, label: 'Abrir cardápio público', href: `/table/${e.slug}`, external: true },
+                { icon: ArrowUpRight, label: 'Abrir cardápio público', href: appPath(`/table/${e.slug}`), external: true },
                 { icon: UtensilsCrossed, label: 'Gerenciar cardápio', href: `/admin/cardapios?e=${e.id}` },
                 { icon: UserPlus, label: 'Vincular proprietário', href: `/admin/usuarios?convidar=${e.id}` },
                 { icon: QrCode, label: 'Gerar QR Code', href: `/admin/qr-codes?e=${e.id}` },

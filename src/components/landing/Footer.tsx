@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
 import { ArrowUpRight, Mail } from 'lucide-react'
@@ -52,7 +53,7 @@ export function FinalCta() {
             <SplitButton href={whatsappHref('demo')} className="w-full justify-between sm:w-auto">
               Solicitar demonstração
             </SplitButton>
-            <OutlineButton href={`/table/${LA_BRASA_SLUG}`} className="w-full sm:w-auto" icon={<ArrowUpRight className="size-4" aria-hidden />}>
+            <OutlineButton href={appPath(`/table/${LA_BRASA_SLUG}`)} className="w-full sm:w-auto" icon={<ArrowUpRight className="size-4" aria-hidden />}>
               Ver cardápio de exemplo
             </OutlineButton>
           </Reveal>

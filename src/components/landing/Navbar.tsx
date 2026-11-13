@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
@@ -158,7 +159,7 @@ export function Navbar() {
               <SplitButton href={whatsappHref('demo')} className="w-full justify-between" onClick={() => setOpen(false)}>
                 Solicitar demonstração
               </SplitButton>
-              <OutlineButton href="/entrar" className="w-full">
+              <OutlineButton href={appPath('/entrar')} className="w-full">
                 Entrar no painel
               </OutlineButton>
             </div>

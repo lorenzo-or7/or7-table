@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/site'
 import type { PublicMenu, PublicProduct } from '@/lib/public-menu'
 
 /**
@@ -7,7 +8,7 @@ import type { PublicMenu, PublicProduct } from '@/lib/public-menu'
  * Volumes Tall 300 ml / Grande 400 ml / Venti 500 ml são referências desta demo.
  * Os mesmos dados estão em supabase/seed_demo.sql (slug "starbucks").
  */
-const img = (slug: string) => `/demo/starbucks/${slug}.webp`
+const img = (slug: string) => assetUrl(`/demo/starbucks/${slug}.webp`)
 
 const C = {
   quentes: 'c2000000-0000-4000-8000-000000000001',

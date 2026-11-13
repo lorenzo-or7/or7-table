@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 import { motion } from 'motion/react'
@@ -36,7 +37,7 @@ export default function Menus() {
         actions={
           current && (
             <a
-              href={`/table/${current.slug}`}
+              href={appPath(`/table/${current.slug}`)}
               target="_blank"
               rel="noreferrer"
               className="inline-flex h-11 items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-4 text-[0.95rem] text-cream hover:bg-white/[0.09]"

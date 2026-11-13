@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 import { useOutletContext } from 'react-router'
 import { ExternalLink, House, Images, Package, Tags } from 'lucide-react'
 import { PanelLayout } from '@/components/panel/PanelLayout'
@@ -43,7 +44,7 @@ export default function OwnerLayout() {
         { label: 'Produtos', href: '/painel/produtos', icon: <Package /> },
         { label: 'Categorias', href: '/painel/categorias', icon: <Tags /> },
         { label: 'Fotografias', href: '/painel/fotografias', icon: <Images /> },
-        { label: 'Visualizar cardápio', href: `/table/${establishment.slug}`, icon: <ExternalLink />, external: true },
+        { label: 'Visualizar cardápio', href: appPath(`/table/${establishment.slug}`), icon: <ExternalLink />, external: true },
       ]}
       context={
         <div className="hidden rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 md:block" data-sidebar-context>

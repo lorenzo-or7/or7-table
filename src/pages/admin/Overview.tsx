@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 import { useMemo } from 'react'
 import { Link } from 'react-router'
 import { motion } from 'motion/react'
@@ -200,7 +201,7 @@ export default function Overview() {
                         <td className="px-3 py-3.5 text-right text-cream tabular">{(view.viewsBy[e.id] ?? 0).toLocaleString('pt-BR')}</td>
                         <td className="px-6 py-3.5 text-right">
                           <a
-                            href={`/table/${e.slug}`}
+                            href={appPath(`/table/${e.slug}`)}
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`Abrir cardápio de ${e.name}`}

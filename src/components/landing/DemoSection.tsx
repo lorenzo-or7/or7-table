@@ -1,3 +1,4 @@
+import { appPath } from '@/lib/site'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useInView } from 'motion/react'
 import { ArrowUpRight, Hand, Layers, PackageX } from 'lucide-react'
@@ -119,7 +120,7 @@ export function DemoSection() {
             ))}
           </ul>
           <Reveal delay={0.2} className="mt-10 flex flex-wrap items-center gap-4">
-            <OutlineButton href={`/table/${demo.slug}`} size="md" icon={<ArrowUpRight className="size-4" aria-hidden />}>
+            <OutlineButton href={appPath(`/table/${demo.slug}`)} size="md" icon={<ArrowUpRight className="size-4" aria-hidden />}>
               Abrir {demo.name} em tela cheia
             </OutlineButton>
             <span className="text-sm text-dim">Demonstração. Preços e descrições ilustrativos.</span>
