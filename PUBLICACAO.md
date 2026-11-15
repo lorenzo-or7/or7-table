@@ -25,6 +25,8 @@ Sem `.env.local`, o site abre com os três cardápios demonstrativos (dados loca
 3. Authentication → URL Configuration:
    - Site URL: `https://SEU-DOMINIO`
    - Redirect URLs: `https://SEU-DOMINIO/redefinir-senha` e `http://localhost:5173/redefinir-senha`
+   - Enquanto o site estiver só no GitHub Pages (sem domínio próprio): Site URL `https://lorenzo-or7.github.io/or7-table`
+     e Redirect URL `https://lorenzo-or7.github.io/or7-table/redefinir-senha`.
 
 **B. SQL Editor, nesta ordem**
 1. `supabase/migrations/0001_or7table.sql` — tabelas, RLS, Storage (bucket `menu-media`), funções públicas
@@ -46,6 +48,10 @@ Para conferir depois: Database → Advisors → Security deve mostrar no máximo
 - Project Settings → API Keys: copie a **Publishable key** (`sb_publishable_…`) para `VITE_SUPABASE_ANON_KEY`
   (a anon legada também funciona) e a Project URL para `VITE_SUPABASE_URL`.
 - **Nunca** coloque a Secret key nem a service_role no site: tudo que começa com `VITE_` vai para o navegador.
+- **GitHub Pages:** repositório → Settings → Secrets and variables → Actions → aba **Variables** → crie
+  `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (a Publishable key) e `VITE_PUBLIC_SITE_URL`
+  (`https://lorenzo-or7.github.io/or7-table`). O workflow `deploy.yml` já lê essas variáveis; sem elas o site
+  publicado continua em modo demonstração. A Publishable key é pública por natureza (a proteção é a RLS).
 
 **E. Super Admin** (só quando for criar a conta principal)
 1. Authentication → Users → Add user → Create new user: seu e-mail, senha forte e única, **Auto Confirm User**.
@@ -56,6 +62,18 @@ Para conferir depois: Database → Advisors → Security deve mostrar no máximo
 - Authentication → Emails: o link de convite vale pelo *Email OTP Expiration* (padrão 24 h); "Reenviar convite" gera outro.
 - Para produção, configure um SMTP próprio (Authentication → Emails → SMTP). O SMTP padrão do Supabase tem limite baixo
   de envios por hora e serve só para testes.
+
+**G. Backups e continuidade (plano Free)**
+- O plano Free **não tem backups automáticos** nem download de backup pelo painel. Faça cópias manuais periódicas
+  com a Supabase CLI (`supabase db dump`, que exige Docker) e guarde fora do Supabase. Arquivos do Storage
+  (fotos) não entram no dump do banco: mantenha também os originais.
+- Projetos Free podem ser pausados por inatividade. Antes de atender clientes pagantes, avalie o plano Pro
+  (backups diários e sem pausa).
+
+**H. Revogação de acesso**
+- Remover o vínculo (Usuários e acessos → "Sem acesso"): vale na próxima consulta, porque a RLS lê o vínculo a cada pedido.
+- Excluir a conta (pelo painel, via Edge Function) ou banir em Authentication → Users: impede novos logins.
+- Um token já emitido continua válido até expirar (cerca de 1 h), mas sem vínculo ele não enxerga nenhum dado.
 
 **Regra de manutenção:** as migrações formam uma sequência. Nunca rode de novo só a 0001 (ou outra antiga) isoladamente:
 ela recria funções na versão anterior. Se precisar repetir, rode 0001 → 0005 inteiras, em ordem.

@@ -81,6 +81,18 @@ function RequireRole({ role, children }: { role: Role; children: ReactNode }) {
   if (loading) return <FullScreenLoader />
   if (!session) return <Navigate to="/entrar" replace state={{ from: location.pathname }} />
   // senha sem segundo fator (aal1) não abre painel nenhum: vai para a verificação e volta ao destino
+  if (mfa === 'unavailable') {
+    return (
+      <Ready>
+        <AccessIssue
+          title="Sem conexão com o servidor"
+          text="Não conseguimos confirmar sua sessão agora. Verifique a internet e tente de novo. Nenhum dado foi alterado."
+          onSignOut={signOut}
+          onRetry={() => window.location.reload()}
+        />
+      </Ready>
+    )
+  }
   if (mfa !== 'ok') return <Navigate to="/verificacao" replace state={{ from: location.pathname }} />
   if (!profile) {
     if (!retried) return <FullScreenLoader />
@@ -109,7 +121,7 @@ function RequireRole({ role, children }: { role: Role; children: ReactNode }) {
   return <Ready>{children}</Ready>
 }
 
-function AccessIssue({ title, text, onSignOut }: { title: string; text: string; onSignOut: () => Promise<void> }) {
+function AccessIssue({ title, text, onSignOut, onRetry }: { title: string; text: string; onSignOut: () => Promise<void>; onRetry?: () => void }) {
   return (
     <main className="grid min-h-dvh place-items-center bg-abyss px-6">
       <div className="max-w-md text-center">
@@ -117,6 +129,7 @@ function AccessIssue({ title, text, onSignOut }: { title: string; text: string; 
         <h1 className="mt-8 text-2xl font-semibold">{title}</h1>
         <p className="mt-3 leading-relaxed text-mist">{text}</p>
         <div className="mt-8 flex justify-center gap-3">
+          {onRetry && <Button onClick={onRetry}>Tentar de novo</Button>}
           <ButtonLink to="/" variant="secondary">
             Ir para o site
           </ButtonLink>

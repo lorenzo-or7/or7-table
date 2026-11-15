@@ -105,6 +105,7 @@ export function friendlyError(error: unknown): string {
   const msg = raw.toLowerCase()
 
   if (msg.includes('invalid login credentials')) return 'E-mail ou senha incorretos.'
+  if (msg.includes('banned')) return 'Este acesso está desativado. Fale com a equipe Or7.'
   if (msg.includes('email not confirmed')) return 'Este e-mail ainda não foi confirmado. Verifique sua caixa de entrada.'
   if (msg.includes('rate limit') || msg.includes('too many')) return 'Muitas tentativas em pouco tempo. Aguarde um minuto e tente de novo.'
   if (msg.includes('failed to fetch') || msg.includes('network')) return 'Sem conexão com o servidor. Verifique sua internet.'

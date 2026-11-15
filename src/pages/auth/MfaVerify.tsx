@@ -176,7 +176,15 @@ export default function MfaVerify() {
       heading={enrolling ? 'Mais uma\ncamada de proteção.' : 'Confirme\nque é você.'}
       text="Todo acesso administrativo ao Or7 Table usa senha e um código do Authenticator. Assim, nenhuma senha vazada abre o seu painel."
     >
-      {!loading && mfa === 'none' ? (
+      {!loading && mfa === 'unavailable' ? (
+        <div role="alert">
+          <h1 className="text-[1.75rem] leading-tight font-semibold text-cream">Sem conexão com o servidor</h1>
+          <p className="mt-2.5 leading-relaxed text-mist">Não conseguimos falar com o servidor de autenticação. Confira a internet e tente de novo.</p>
+          <Button size="lg" className="mt-8 h-[54px] w-full rounded-[10px]" onClick={() => refreshMfa()}>
+            Tentar de novo
+          </Button>
+        </div>
+      ) : !loading && mfa === 'none' ? (
         <Navigate to="/entrar" replace />
       ) : loading ? (
         <div className="grid place-items-center py-20">

@@ -79,3 +79,8 @@ alter table public.security_events add constraint security_events_event_check ch
 
 -- 6. Sequences usadas por inserções do servidor ---------------------------------
 grant usage, select on all sequences in schema public to service_role;
+
+-- 7. Índices nas chaves estrangeiras ainda sem índice (consultas do painel e exclusões em cascata)
+create index if not exists owner_invites_establishment_idx on public.owner_invites(establishment_id);
+create index if not exists security_events_actor_idx on public.security_events(actor_id, created_at desc);
+create index if not exists billing_payments_recorded_by_idx on public.billing_payments(recorded_by);

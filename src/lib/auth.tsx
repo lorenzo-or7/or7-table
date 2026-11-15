@@ -10,9 +10,11 @@ import type { Profile } from './types'
  *  enroll    → senha ok, mas ainda sem Authenticator cadastrado (primeiro acesso)
  *  challenge → senha ok, Authenticator cadastrado, falta digitar o código
  *  ok        → sessão aal2: o painel pode abrir (as permissões ainda são checadas pelo papel)
+ *  unavailable → o servidor de autenticação não respondeu (rede/instabilidade): nada é liberado,
+ *               a sessão é mantida e a tela oferece "Tentar de novo"
  * O banco aplica a mesma regra (migração 0004): com aal1 nenhuma tabela administrativa responde.
  */
-export type MfaState = 'none' | 'enroll' | 'challenge' | 'ok'
+export type MfaState = 'none' | 'enroll' | 'challenge' | 'ok' | 'unavailable'
 
 interface AuthState {
   session: Session | null
@@ -61,8 +63,20 @@ function markExpired() {
 
 export async function readMfaState(): Promise<MfaState> {
   if (!supabase) return 'none'
-  const { data, error } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
-  if (error || !data?.currentLevel) return 'none'
+  let res
+  try {
+    res = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
+  } catch {
+    return 'unavailable'
+  }
+  const { data, error } = res
+  if (error) {
+    // falha de rede ou do servidor não é o mesmo que sessão inválida: não desloga, mas também não libera
+    const status = (error as { status?: number }).status ?? 0
+    if (error.name === 'AuthRetryableFetchError' || status === 0 || status >= 500) return 'unavailable'
+    return 'none'
+  }
+  if (!data?.currentLevel) return 'none'
   if (data.currentLevel === 'aal2') return 'ok'
   return data.nextLevel === 'aal2' ? 'challenge' : 'enroll'
 }
